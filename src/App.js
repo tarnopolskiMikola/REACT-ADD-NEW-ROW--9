@@ -7,6 +7,8 @@ import useServerData from './hooks/useServerData';
 import Switcher from './switcher/switcher';
 import './datailItem/deteil.css';
 import Paginator from './paginator/paginator';
+import Todo from './todo/todo'
+import GetTodos from './inputForm/getTodos';
 function App() {
 
 //const baseUrl = 'http://www.filltext.com/?rows=32&id={...|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}'
@@ -24,7 +26,8 @@ const [buttonNextDisabled, setButtonNextDisabled] = useState('page-item');
 const [buttonPreviousDisabled, setButtonPreviousDisabled] = useState('page-item');
 const [currentPageActiv, setcurrentPageActiv] = useState('page-item');
 const [searchText, setSearchText] = useState('');
-const [newRow, setnewRow] = useState({});
+const [newRow, setnewRow] = useState();
+const [newI, setnewI] = useState(0);
 const limitCountPage = 50;
 
 
@@ -33,6 +36,7 @@ const getFiltredData = () => {
     return contactData
   }
   return contactData.filter(
+
   el=>{
  return el['firstName'].toLowerCase().includes(searchText)
  || el['lastName'].toLowerCase().includes(searchText)
@@ -41,7 +45,7 @@ const getFiltredData = () => {
   )
 }
 const filteredData = getFiltredData()
-console.log(filteredData)
+// console.log(filteredData)
 
 const lastBlockRow = currentPage*limitCountPage
 const firstBlockRow =  lastBlockRow - limitCountPage
@@ -50,11 +54,16 @@ const currentBlockRows = filteredData.slice(firstBlockRow,lastBlockRow)
  
 const  getInputFormData = ({id,firstName,lastName,email,phone}) =>{
   setnewRow({id,firstName,lastName,email,phone})
- 
+
   }
   
-  //currentBlockRows.unshift(newRow)
- 
+
+//   console.log(newRow);
+//  // firstBlockRow.push(newRow)
+//  localStorage.setItem("todos", JSON.stringify(newRow))
+//  console.log( localStorage.getItem("todos", JSON.stringify(newRow)));
+
+
 const buttonHandler = (url) => {
   setUrl(url)
   setIsButtonClick(true)
@@ -72,6 +81,7 @@ useEffect(()=>{
   if(!isLoaded){
     return
   }
+ 
   setTotalCountRow(filteredData.length)
   const  getTotalCountPage = totalCountRow/limitCountPage;
    
@@ -162,6 +172,8 @@ let i = -1;
                 currentPageActiv={currentPageActiv}
                 currentPage={currentPage}
                 />
+                {/* <Todo newRow={newRow} /> */}
+                   
        <Table 
        contactData={currentBlockRows}
        sortData={sortData}

@@ -3,6 +3,7 @@ import ArrowUp from '../svg/ArrowUp'
 import ArrowDown from '../svg/ArrowDown'
 import SearchElement from '../search/searchElement'
 import InputForm from '../inputForm/inputForm'
+import GetTodos from '../inputForm/getTodos'
 const Table = ({sortData, contactData, directionSort, detailRow ,firstBlockRow,onSearchSend,  getInputFormData}) => {
   
   const [fieldData, setFieldData] = useState('');
@@ -23,12 +24,12 @@ const Table = ({sortData, contactData, directionSort, detailRow ,firstBlockRow,o
 
     return (
       <>
-      <InputForm  getInputFormData={getInputFormData}/>
+      <InputForm   />
 <SearchElement onSearchSend={onSearchSend} />
         <div className="table">
         <thead>
           <tr>
-            <th >id</th>
+            <th onClick={()=>{fieldSortData('idd')}}>id</th>
             <th onClick={()=>{fieldSortData('firstName')}}>
               {fieldData==='firstName'?<Arrow/>:null}
               FirstName</th>
@@ -43,8 +44,8 @@ const Table = ({sortData, contactData, directionSort, detailRow ,firstBlockRow,o
               phone</th>
           </tr>
         </thead>
-       
-           
+        
+        <GetTodos/>      
                {contactData.map(
               
                  item=>(
@@ -55,10 +56,10 @@ const Table = ({sortData, contactData, directionSort, detailRow ,firstBlockRow,o
                    <td>{item.email}</td>
                    <td>{item.phone}</td>
                 </tr>
-                
+                  
                ))}
            
-        
+           
       </div>
       </>
     )
